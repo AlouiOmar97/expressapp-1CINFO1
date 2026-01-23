@@ -5,7 +5,10 @@ var router = express.Router();
 //const usersService = require('../services/usersService');
 //router.get('/', usersService.findById);
 
-const { findAll, findById } = require('../services/usersService');
+const { findAll, findById, add, update, deleteById } = require('../services/usersService');
 router.get('/', findAll);
 router.get('/:id', findById);
+router.post('/', add);
+router.put('/:id', update);
+router.delete('/:id', deleteById);
 module.exports = router;
