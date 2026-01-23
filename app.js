@@ -4,6 +4,7 @@ var path = require('path');
 
 var indexController = require('./controllers/index');
 var usersController = require('./controllers/users');
+var productsController = require('./controllers/product');
 
 var app = express();
 
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexController);
 app.use('/users', usersController);
+app.use('/products', productsController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
