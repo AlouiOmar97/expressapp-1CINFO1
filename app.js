@@ -5,6 +5,7 @@ var path = require('path');
 var indexController = require('./controllers/index');
 var usersController = require('./controllers/users');
 var productsController = require('./controllers/product');
+var osController = require('./controllers/os');
 
 var app = express();
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexController);
 app.use('/users', usersController);
 app.use('/products', productsController);
+app.use('/os', osController);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

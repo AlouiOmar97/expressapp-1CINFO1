@@ -1,0 +1,26 @@
+{
+    "TESLAMODEL3": {
+        "name": "Model 3",
+        "manufacturer": "Tesla",
+        "price": 39999,
+        "electric": true,
+        "stock": 18,
+        "options": ["Autopilot", "Long Range Battery", "Glass Roof"]
+    },
+    "TOYOTACOROLLA": {
+        "name": "Corolla",
+        "manufacturer": "Toyota",
+        "price": 21999.99,
+        "hybrid": false,
+        "stock": 54,
+        "options": ["Cruise Control", "Lane Assist", "Bluetooth"]
+    },
+    "BMWX5": {
+        "name": "X5",
+        "manufacturer": "BMW",
+        "price": 60999.99,
+        "hybrid": true,
+        "stock": 0,
+        "options": ["All-Wheel Drive", "Leather Seats", "Panoramic Sunroof"]
+    }
+}
