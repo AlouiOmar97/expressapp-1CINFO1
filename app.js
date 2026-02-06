@@ -3,7 +3,8 @@ var express = require('express');
 var path = require('path');
 var mongo = require('mongoose');
 var config = require('./config/db.json');
-
+var debug = require('debug')('expressapp:server');
+var http = require('http');
 var indexController = require('./controllers/index');
 var usersController = require('./controllers/users');
 var chatsController = require('./controllers/chats');
@@ -11,6 +12,7 @@ var usersDBController = require('./controllers/usersDB');
 var productsController = require('./controllers/product');
 var osController = require('./controllers/os');
 var carsController = require('./controllers/car');
+var { socketIO } = require('./services/chatsService')
 
 var app = express();
 
@@ -50,5 +52,81 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+// Initialize socket.io with the http server as parameter
+const io = socketIO(server);
+
+server.listen(3000);
+server.on('error', onError);
+server.on('listening', onListening);
+
+
 
 module.exports = app;

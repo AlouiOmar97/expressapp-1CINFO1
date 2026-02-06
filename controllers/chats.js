@@ -7,6 +7,10 @@ const { findAll, findById, add, update, deleteById } = require('../services/chat
 const validate = require('../middlewares/validateChat');
 // localhost:3000/chats/
 router.get('/', findAll);
+// localhost:3000/chats/room
+router.get('/room', (req, res) => {
+    res.render('chat');
+});
 // localhost:3000/chats/1
 router.get('/:id', findById);
 // localhost:3000/chats/

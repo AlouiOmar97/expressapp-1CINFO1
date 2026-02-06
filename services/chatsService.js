@@ -1,4 +1,15 @@
 const Chat = require('../models/chat');
+var socketIo = require('socket.io')
+ 
+ 
+function socketIO(server) {
+    const io = socketIo(server);
+     io.on("connection",(socket)=>{
+        console.log("user connected with socket id"+socket.id); 
+        io.emit("msg","msg from serveur")
+    })
+ return io;
+}
 
 const findAll = async(req, res) => {
     const chats = await Chat.find();
@@ -45,6 +56,7 @@ async function deleteById(req, res) {
 }
 
 module.exports = {
+    socketIO,
     findAll,
     findById,
     add,
