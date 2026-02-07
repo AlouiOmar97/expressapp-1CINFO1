@@ -9,15 +9,24 @@
     <script src="/socket.io/socket.io.js"></script>
     <h1>Chat Room</h1>
     <input type="text" id="messageInput" placeholder="Type your message here...">
-    <button id="sendButton">Send</button>
+    <button onclick="sendMessage()">Send</button>
     <script>
     var socket = io();
+    const name = prompt("Enter your Name !")
+    console.log(name)
     socket.on("msg",(data)=>{
         console.log(data);
         const messageElement = document.createElement("p"); //<p></p>
         messageElement.textContent = data; // <p>msg from serveur</p>
         document.body.append(messageElement); // <body><p>msg from serveur</p></body>
     })
+
+    function sendMessage(){
+        const msg= document.getElementById("messageInput").value;
+        console.log(msg)
+        socket.emit("sendMsg", name + " : " + msg)
+        document.getElementById("messageInput").value = ""
+    }
      
     </script>
 </body>

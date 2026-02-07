@@ -9,6 +9,7 @@ var indexController = require('./controllers/index');
 var usersController = require('./controllers/users');
 var chatsController = require('./controllers/chats');
 var usersDBController = require('./controllers/usersDB');
+var joueursController = require('./controllers/joueur');
 var productsController = require('./controllers/product');
 var osController = require('./controllers/os');
 var carsController = require('./controllers/car');
@@ -36,6 +37,7 @@ app.use('/usersdb', usersDBController);
 app.use('/products', productsController);
 app.use('/os', osController);
 app.use('/cars', carsController);
+app.use('/joueurs', joueursController)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

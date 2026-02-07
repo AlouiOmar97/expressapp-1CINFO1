@@ -4,9 +4,22 @@ var socketIo = require('socket.io')
  
 function socketIO(server) {
     const io = socketIo(server);
-     io.on("connection",(socket)=>{
+     io.on("connection",async (socket)=>{
         console.log("user connected with socket id"+socket.id); 
         io.emit("msg","msg from serveur")
+        const chats = await Chat.find();
+        io.emit("msg", JSON.stringify(chats))
+        socket.on("sendMsg",async (data)=>{
+            console.log(data)
+            io.emit("msg", data)
+            const newChat={
+                content: data,
+                status: "sent",
+                cdate: new Date()
+            }
+            const chatDB = await new Chat(newChat).save();
+            console.log(chatDB)
+        })
     })
  return io;
 }
