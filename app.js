@@ -123,7 +123,9 @@ var server = http.createServer(app);
 // Initialize socket.io with the http server as parameter
 const io = socketIO(server);
 
-server.listen(3000);
+server.listen(3000,() => {
+  console.log('Server is running on port 3000');
+})
 server.on('error', onError);
 server.on('listening', onListening);
 
